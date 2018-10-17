@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>PGP Online Tool</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/css/mdb.min.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class = "page-header text-center">
+
+    <h1>
+        <b> PGP encryption/decryption tool </b>
+
+
+    </h1>
+
+    </div>
+
+<div class="container">
+    <p>&nbsp;</p>
+
+
+    <div class="row">
+
+<div class="form-group col-md-6">
+    <label for="plainTextMessage">Message</label>
+    <textarea class="form-control rounded-0" id="plainTextMessage" rows="10"></textarea>
+</div>
+
+<div class="form-group col-md-6">
+    <label for="pgpKey">PGP Key</label>
+    <textarea class="form-control rounded-0" id="pgpKey" rows="10"></textarea>
+</div>
+    </div>
+</div>
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="form-group col-md-12">
+            <label for="pgpMessage">Encrypted Text</label>
+            <textarea class="form-control rounded-0" id="pgpMessage" rows="10"></textarea>
+        </div>
+
+        <div class="col-md-12 text-center">
+            <button id="button" name="button" class="btn btn-primary">Submit</button>
+
+        </div>
+
+
+
+</div>
+</div>
+
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/js/mdb.min.js"></script>
+
+<script src="openpgp.min.js"></script>
+<script type="text/javascript" src="functions.js"></script>
+
+
+
+</body>
+
+</html>
