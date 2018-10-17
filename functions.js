@@ -18,6 +18,9 @@ async function  encrypt_message(pubkey, message) {
 }
 
 
+
+
+
 $(document).ready(function(){
     $("button").click(function(){
 
