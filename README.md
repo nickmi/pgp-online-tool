@@ -12,8 +12,9 @@ Any contributions are happily welcomed
 Currently at day 0: 
 
 - Encryption works
+- Decryption works
 
 To-do:
 
-- Decryption
 - Key's Generation
+- Error Handling 

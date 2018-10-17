@@ -30,7 +30,7 @@
 <div class = "page-header text-center">
 
     <h1>
-        <b> PGP Online Tools<button type="button" class="btn btn-git btn-dark"><i class="fa fa-github pr-2"></i> Github</button>
+        <b class=".text-monospace"> PGP Online Tools<button type="button" class="btn btn-git btn-dark"><i class="fa fa-github pr-2"></i> Github</button>
         </a> </b>
 
 
@@ -45,13 +45,23 @@
     <div class="row">
 
 <div class="form-group col-md-6">
-    <label for="plainTextMessage">Message</label>
+    <label for="plainTextMessage"><b>Message</b></label>
     <textarea class="form-control rounded-0" id="plainTextMessage" rows="10"></textarea>
 </div>
 
 <div class="form-group col-md-6">
-    <label for="pgpKey">PGP Key</label>
+    <label for="pgpKey"><b>PGP Key</b></label>
+
     <textarea class="form-control rounded-0" id="pgpKey" rows="10"></textarea>
+
+
+    <div class="md-form">
+        <input type="password" id="passphrasePGP" class="form-control">
+        <label for="passphrasePGP" ><b>PGP passphrase</b></label>
+    </div>
+
+
+
 </div>
     </div>
 </div>
@@ -62,15 +72,15 @@
     <div class="row">
 
         <div class="form-group col-md-12">
-            <label for="pgpMessage">Encrypted Text</label>
+            <label for="pgpMessage"><b>Encrypted Text</b></label>
             <textarea class="form-control rounded-0" id="pgpMessage" rows="10"></textarea>
         </div>
 
 
         <div class="col-md-12 text-center">
-            <button id="encryptButton" name="button" class="btn btn-dark">Encrypt</button>
-            <button id="decryptButton" name="button" class="btn btn-dark">Decrypt</button>
-            <button id="keygenerationButton" name="button" class="btn btn-dark">Generate Key's</button>
+            <button id="encryptButton" name="encryptButton" class="btn btn-dark">Encrypt</button>
+            <button id="decryptButton" name="decryptButton" class="btn btn-dark">Decrypt</button>
+            <button id="keygenerationButton" name="keygenerationButton " class="btn btn-dark">Generate Key's</button>
         </div>
 </div>
 </div>

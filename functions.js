@@ -8,7 +8,7 @@
 
 async function  encrypt_message(pubkey, message) {
 
-    var options = {
+    let options = {
         message: openpgp.message.fromText(message),
         publicKeys: ( await openpgp.key.readArmored(pubkey)).keys
 };
@@ -17,12 +17,32 @@ async function  encrypt_message(pubkey, message) {
     });
 }
 
+async function decrypt_message(privkey,encryptedMessage,passphrase) {
 
+    const privKeyObj = (await openpgp.key.readArmored(privkey)).keys[0];
+    await privKeyObj.decrypt(passphrase);
 
+    const options = {
+        message: await openpgp.message.readArmored(encryptedMessage),    // parse armored message
+        privateKeys: [privKeyObj]                               // for decryption
+    }
 
+    openpgp.decrypt(options).then(plaintext => {
+        document.getElementById("plainTextMessage").value = plaintext.data;
+    })
+}
 
 $(document).ready(function(){
-    $("button").click(function(){
+
+    $("#decryptButton").click(function(){
+
+        let message = $('textarea#pgpMessage').val();
+        let privateKey = $('textarea#pgpKey').val();
+        decrypt_message(privateKey,message,document.getElementById("passphrasePGP").value)
+
+    });
+
+    $("#encryptButton").click(function(){
 
         let message = $('textarea#plainTextMessage').val();
         let pubkey = $('textarea#pgpKey').val();
