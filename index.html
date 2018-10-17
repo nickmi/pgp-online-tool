@@ -13,13 +13,27 @@
     <!-- Material Design Bootstrap -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.11/css/mdb.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="bootstrap-social.css">
+
+    <style>
+        body  {
+            background-image: url("adrian-226109-unsplash.jpg");
+            background-repeat: no-repeat;
+            background-size: 100%;
+
+        }
+    </style>
+
+
 </head>
 <body>
 
 <div class = "page-header text-center">
 
     <h1>
-        <b> PGP encryption/decryption tool </b>
+        <b> PGP Tools   <a class="btn btn-light btn-github">
+            <span class="fa fa-github"></span>
+        </a> </b>
 
 
     </h1>
@@ -54,13 +68,12 @@
             <textarea class="form-control rounded-0" id="pgpMessage" rows="10"></textarea>
         </div>
 
+
         <div class="col-md-12 text-center">
-            <button id="button" name="button" class="btn btn-primary">Submit</button>
-
+            <button id="encryptButton" name="button" class="btn btn-dark">Encrypt</button>
+            <button id="decryptButton" name="button" class="btn btn-dark">Decrypt</button>
+            <button id="keygenerationButton" name="button" class="btn btn-dark">Generate Key's</button>
         </div>
-
-
-
 </div>
 </div>
 
