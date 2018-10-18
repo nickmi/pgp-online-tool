@@ -1,6 +1,6 @@
 # PGP-OnlineTool
 
-![screenshot from 2018-10-17 20-16-48](https://user-images.githubusercontent.com/2481323/47104349-def76180-d249-11e8-9c13-90cd9d398313.png)
+![screenshot from 2018-10-18 20-03-37](https://user-images.githubusercontent.com/2481323/47171299-0a914f00-d311-11e8-9d91-835b671aee4d.png)
 
 A simple website to facilitate the use of PGP. Although the use of PGP is quite widespread
 i made this tool in order to provide a straightforward interface that can provide
