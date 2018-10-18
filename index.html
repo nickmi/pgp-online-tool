@@ -30,7 +30,7 @@
 <div class = "page-header text-center">
 
     <h1>
-        <b class=".text-monospace"> PGP Online Tool<button type="button" class="btn btn-git btn-dark" onclick="location.href = 'https://github.com/nickmi/PGP-OnlineTool';"><i class="fa fa-github pr-2"></i> Github</button>
+        <b class=".text-monospace btn-lg  btn-block btn-dark"> PGP Online Tool<button type="button" class="btn btn-git btn-dark" onclick="location.href = 'https://github.com/nickmi/PGP-OnlineTool';"><i class="fa fa-github pr-2"></i> Github</button>
         </a> </b>
 
 
@@ -39,31 +39,59 @@
     </div>
 
 <div class="container">
-    <p>&nbsp;</p>
 
 
-    <div class="row">
-
-<div class="form-group col-md-6">
-    <label for="plainTextMessage"><b>Message</b></label>
-    <textarea class="form-control rounded-0" id="plainTextMessage" rows="10"></textarea>
-</div>
-
-<div class="form-group col-md-6">
-    <label for="pgpKey"><b>PGP Key</b></label>
-
-    <textarea class="form-control rounded-0" id="pgpKey" rows="10"></textarea>
-
-
-    <div class="md-form">
-        <input type="password" id="passphrasePGP" class="form-control">
-        <label for="passphrasePGP" ><b>PGP passphrase</b></label>
-    </div>
+    <div class="row ml-md-5">
 
 
 
-</div>
-    </div>
+        <!-- Card -->
+        <div class="card form-group col-md-5 ml-md-5 ">
+
+
+
+            <!-- Card content -->
+            <div class="card-body ">
+
+
+                <div class="form-group col-md-12">
+                    <label for="plainTextMessage"><b>Message</b></label>
+                    <textarea class="form-control rounded-0" id="plainTextMessage" rows="13"></textarea>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- Card -->
+
+
+
+        <div class="card form-group col-md-5 ml-md-1">
+
+
+            <!-- Card content -->
+            <div class="card-body ">
+
+                <div class="form-group col-md-12">
+                    <label for="pgpKey"><b>PGP Key</b></label>
+
+                    <textarea class="form-control rounded-0" id="pgpKey" rows="10"></textarea>
+
+
+                    <div class="md-form">
+                        <input type="password" id="passphrasePGP" class="form-control">
+                        <label for="passphrasePGP" ><b>PGP passphrase</b></label>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            </div>
+
+        </div>
+
 </div>
 
 
@@ -71,9 +99,22 @@
 
     <div class="row">
 
-        <div class="form-group col-md-12">
-            <label for="pgpMessage"><b>Encrypted Text</b></label>
-            <textarea class="form-control rounded-0" id="pgpMessage" rows="10"></textarea>
+
+
+        <div class="card form-group col-md-11 ml-md-5">
+
+
+            <!-- Card content -->
+            <div class="card-body ">
+
+
+                <div class="form-group col-md-12">
+                    <label for="pgpMessage"><b>Encrypted Text</b></label>
+                    <textarea class="form-control rounded-0" id="pgpMessage" rows="10"></textarea>
+                </div>
+
+            </div>
+
         </div>
 
 
@@ -82,6 +123,8 @@
             <button id="decryptButton" name="decryptButton" class="btn btn-dark">Decrypt</button>
             <button id="keygenerationButton" name="keygenerationButton " class="btn btn-dark">Generate Key's</button>
         </div>
+
+
 </div>
 </div>
 
