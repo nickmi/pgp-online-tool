@@ -32,10 +32,30 @@ async function decrypt_message(privkey,encryptedMessage,passphrase) {
     })
 }
 
+ function generateRSA_Keys(email,name,password){
 
+    var options = {
+        userIds: [{ name:name, email:email }], // multiple user IDs
+        numBits: 4096,                                            // RSA key size
+        passphrase: password         // protects the private key
+    };
 
+    openpgp.generateKey(options).then(function(key) {
+        var privkey = key.privateKeyArmored; // '-----BEGIN PGP PRIVATE KEY BLOCK ... '
+        var pubkey = key.publicKeyArmored;   // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
+        var revocationSignature = key.revocationSignature; // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
 
+        var zip = new JSZip();
+        zip.file("privkey.txt", privkey);
+        zip.file("pubkey.txt", pubkey);
+        zip.generateAsync({type:"blob"})
+            .then(function(content) {
 
+                saveAs(content, "keys.zip");
+            });
+    });
+
+}
 
 $(document).ready(function(){
 
@@ -54,5 +74,11 @@ $(document).ready(function(){
         encrypt_message(pubkey,message)
 
     });
+
+    $("#keyGenerator").click(function () {
+
+generateRSA_Keys(document.getElementById("emailForm").value,document.getElementById("nameForm").value,document.getElementById("passForm").value);
+
+    })
 
 });
