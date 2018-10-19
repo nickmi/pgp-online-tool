@@ -8,7 +8,7 @@
 
 async function  encrypt_message(pubkey, message) {
 
-    let options = {
+    let options =  {
         message: openpgp.message.fromText(message),
         publicKeys: ( await openpgp.key.readArmored(pubkey)).keys
 };
