@@ -32,6 +32,11 @@ async function decrypt_message(privkey,encryptedMessage,passphrase) {
     })
 }
 
+
+
+
+
+
 $(document).ready(function(){
 
     $("#decryptButton").click(function(){
