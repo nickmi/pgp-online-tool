@@ -5,7 +5,7 @@
  * @return {pgpMessage} String - Encrypted ASCII Armored message.
  */
 
-
+"use strict";
 async function  encrypt_message(pubkey, message) {
 
     let options =  {
@@ -32,20 +32,27 @@ async function decrypt_message(privkey,encryptedMessage,passphrase) {
     })
 }
 
- function generateRSA_Keys(email,name,password){
+ async function generateRSA_Keys(email,name,password){
 
-    var options = {
+    let options = {
         userIds: [{ name:name, email:email }], // multiple user IDs
         numBits: 4096,                                            // RSA key size
         passphrase: password         // protects the private key
     };
 
     openpgp.generateKey(options).then(function(key) {
-        var privkey = key.privateKeyArmored; // '-----BEGIN PGP PRIVATE KEY BLOCK ... '
-        var pubkey = key.publicKeyArmored;   // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
-        var revocationSignature = key.revocationSignature; // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
 
-        var zip = new JSZip();
+
+        let privkey = key.privateKeyArmored; // '-----BEGIN PGP PRIVATE KEY BLOCK ... '
+        let pubkey = key.publicKeyArmored;   // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
+        let revocationSignature = key.revocationSignature; // '-----BEGIN PGP PUBLIC KEY BLOCK ... '.
+
+        $("#modalLoginForm").modal('hide');
+        $("#keyGenerator").prop('disabled', false).text("GENERATE");
+
+        alert("Key generation completed");
+
+        let zip = new JSZip();
         zip.file("privkey.txt", privkey);
         zip.file("pubkey.txt", pubkey);
         zip.generateAsync({type:"blob"})
@@ -54,6 +61,14 @@ async function decrypt_message(privkey,encryptedMessage,passphrase) {
                 saveAs(content, "keys.zip");
             });
     });
+
+}
+
+
+function dostuff(){
+
+
+    alert("completed");
 
 }
 
@@ -77,7 +92,12 @@ $(document).ready(function(){
 
     $("#keyGenerator").click(function () {
 
-generateRSA_Keys(document.getElementById("emailForm").value,document.getElementById("nameForm").value,document.getElementById("passForm").value);
+        $("#keyGenerator").prop('disabled', true).text("Please wait this can take a while...");
+
+
+       generateRSA_Keys(document.getElementById("emailForm").value,document.getElementById("nameForm").value,document.getElementById("passForm").value);
+
+
 
     })
 
