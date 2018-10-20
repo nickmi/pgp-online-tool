@@ -49,6 +49,9 @@ async function decrypt_message(privkey,encryptedMessage,passphrase) {
         let revocationSignature = key.revocationSignature; // '-----BEGIN PGP PUBLIC KEY BLOCK ... '.
 
         $("#keygenerationButton").prop('disabled', false).text("Generate Key Pair").addClass('btn-dark').removeClass('btn-danger ');
+        $("#encryptButton").prop('disabled', false).text("Generate Key Pair").addClass('btn-dark').removeClass('btn-danger ');
+        $("#decryptButton").prop('disabled', false).addClass('btn-dark').removeClass('btn-danger ');
+
 
         alert("Key generation completed");
 
@@ -122,8 +125,11 @@ $(document).ready(function(){
     $("#keygenerationButton").click(function () {
 
         $("#keygenerationButton").prop('disabled', true).text("Please wait this can take a while...").removeClass('btn-dark').addClass('btn-danger');
+        $("#encryptButton").prop('disabled', true).removeClass('btn-dark').addClass('btn-danger');
+        $("#decryptButton").prop('disabled', true).removeClass('btn-dark').addClass('btn-danger');
 
-       generateRSA_Keys(document.getElementById("emailForm").value,document.getElementById("nameForm").value,document.getElementById("passForm").value);
+
+        generateRSA_Keys(document.getElementById("emailForm").value,document.getElementById("nameForm").value,document.getElementById("passForm").value);
 
     })
 
