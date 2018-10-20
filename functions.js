@@ -64,14 +64,6 @@ async function decrypt_message(privkey,encryptedMessage,passphrase) {
 
 }
 
-
-function dostuff(){
-
-
-    alert("completed");
-
-}
-
 $(document).ready(function(){
 
     $("#decryptButton").click(function(){
