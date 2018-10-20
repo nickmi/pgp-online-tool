@@ -106,7 +106,7 @@ $(document).ready(function(){
 
         let message = $('textarea#pgpMessage').val();
         let privateKey = $('textarea#pgpKey').val();
-        decrypt_message(privateKey,message,document.getElementById("passphrasePGP").value)
+        decrypt_message(privateKey,message,document.getElementById("passphrasePGP").value).catch(console.error);
 
     });
 
