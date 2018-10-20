@@ -16,8 +16,8 @@ Currently at day 0:
 
 - Encryption works
 - Decryption works
+- Key Generation
 
 To-do:
 
-- Key's Generation
 - Error Handling 
