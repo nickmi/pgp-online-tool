@@ -56,7 +56,7 @@
 
                 <div class="form-group col-md-12">
                     <label for="plainTextMessage"><b>Message</b></label>
-                    <textarea class="form-control rounded-0" id="plainTextMessage" rows="13"></textarea>
+                    <textarea class="form-control rounded-0" id="plainTextMessage" rows="10"></textarea>
                 </div>
 
             </div>
@@ -99,11 +99,11 @@
 
 <div class="container">
 
-    <div class="row ml-md-5">
+    <div class="row ml-md-5 ">
 
 
 
-        <div class="card form-group col-md-10 ml-md-5">
+        <div class="card form-group col-md-5 ml-md-5 ">
 
 
             <!-- Card content -->
@@ -119,28 +119,15 @@
 
         </div>
 
-
-        <div class="col-md-12 text-center">
-            <button id="encryptButton" name="encryptButton" class="btn btn-dark">Encrypt</button>
-            <button id="decryptButton" name="decryptButton" class="btn btn-dark">Decrypt</button>
-            <button id="keygenerationButton" name="keygenerationButton " class="btn btn-dark" data-toggle="modal" data-target="#modalLoginForm" >Generate Key's</button>
-        </div>
+        <div class="card form-group col-md-5 ml-md-1 ">
 
 
-</div>
+            <!-- Card content -->
+            <div class="card-body  ">
 
 
-    <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header text-center">
-                    <h4 class="modal-title w-100 font-weight-bold">Key Generation</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body mx-3">
-
+                <div class="form-group col-md-12">
+                    <label ><b>Key Generation</b></label>
 
                     <div class="md-form mb-5">
                         <i class="fa fa-user prefix grey-text"></i>
@@ -161,12 +148,22 @@
                     </div>
 
                 </div>
-                <div class="modal-footer d-flex justify-content-center">
-                    <button class="btn btn-dark" id="keyGenerator">Generate</button>
-                </div>
+
             </div>
+
         </div>
-    </div>
+
+
+        <div class="col-md-12 text-center">
+            <button id="encryptButton" name="encryptButton" class="btn btn-dark">Encrypt</button>
+            <button id="decryptButton" name="decryptButton" class="btn btn-dark">Decrypt</button>
+            <button id="keygenerationButton" name="keygenerationButton " class="btn btn-dark"  >Generate Key Pair</button>
+        </div>
+
+
+
+</div>
+
 </div>
 
 <!-- JQuery -->
@@ -182,9 +179,5 @@
 <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.js"></script>
 <script type="text/javascript" src="functions.js"></script>
-
-
-
 </body>
-
 </html>

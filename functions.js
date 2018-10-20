@@ -6,7 +6,8 @@
  */
 
 "use strict";
-async function  encrypt_message(pubkey, message) {
+async function  encrypt_message(pubkey, message)
+{
 
     let options =  {
         message: openpgp.message.fromText(message),
@@ -14,22 +15,22 @@ async function  encrypt_message(pubkey, message) {
 };
     openpgp.encrypt(options).then(function(ciphertext){
         document.getElementById("pgpMessage").value = ciphertext.data;
-    });
+    }).catch(console.error);
 }
 
 async function decrypt_message(privkey,encryptedMessage,passphrase) {
 
     const privKeyObj = (await openpgp.key.readArmored(privkey)).keys[0];
-    await privKeyObj.decrypt(passphrase);
+    await privKeyObj.decrypt(passphrase).catch(console.error);
 
     const options = {
-        message: await openpgp.message.readArmored(encryptedMessage),    // parse armored message
+        message: await openpgp.message.readArmored(encryptedMessage).catch(console.error),    // parse armored message
         privateKeys: [privKeyObj]                               // for decryption
     }
 
     openpgp.decrypt(options).then(plaintext => {
         document.getElementById("plainTextMessage").value = plaintext.data;
-    })
+    }).catch(console.error);
 }
 
  async function generateRSA_Keys(email,name,password){
@@ -47,24 +48,59 @@ async function decrypt_message(privkey,encryptedMessage,passphrase) {
         let pubkey = key.publicKeyArmored;   // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
         let revocationSignature = key.revocationSignature; // '-----BEGIN PGP PUBLIC KEY BLOCK ... '.
 
-        $("#modalLoginForm").modal('hide');
-        $("#keyGenerator").prop('disabled', false).text("GENERATE");
+        $("#keygenerationButton").prop('disabled', false).text("Generate Key Pair").addClass('btn-dark').removeClass('btn-danger ');
 
         alert("Key generation completed");
 
         let zip = new JSZip();
-        zip.file("privkey.txt", privkey);
-        zip.file("pubkey.txt", pubkey);
+        zip.file("privkey.asc", privkey);
+        zip.file("pubkey.asc", pubkey);
         zip.generateAsync({type:"blob"})
             .then(function(content) {
 
                 saveAs(content, "keys.zip");
             });
-    });
+    }).catch(console.error);
 
 }
 
+
+
+
+function validateInput() {
+
+    let email = $("#emailForm").val();
+
+    let name = $("#nameForm").val();
+
+    let password = $("#passForm").val();
+
+
+
+    $("#keygenerationButton").prop('disabled', (email&&name&&password)==="");
+    console.log( (email&&name&&password)==="");
+    console.log(email,name,password);
+    console.log("asdasd");
+
+}
+
+
+//$("#emailForm").keyup(validateInput);
+
+
 $(document).ready(function(){
+
+
+    $("#keygenerationButton").prop('disabled', true);
+
+
+
+
+    $("#emailForm,#nameForm,#passForm").each(function(){
+        $(this).keypress(validateInput).keyup(validateInput).keydown(validateInput);
+    });
+
+
 
     $("#decryptButton").click(function(){
 
@@ -78,19 +114,20 @@ $(document).ready(function(){
 
         let message = $('textarea#plainTextMessage').val();
         let pubkey = $('textarea#pgpKey').val();
-        encrypt_message(pubkey,message)
+
+            encrypt_message(pubkey, message);
 
     });
 
-    $("#keyGenerator").click(function () {
+    $("#keygenerationButton").click(function () {
 
-        $("#keyGenerator").prop('disabled', true).text("Please wait this can take a while...");
-
+        $("#keygenerationButton").prop('disabled', true).text("Please wait this can take a while...").removeClass('btn-dark').addClass('btn-danger');
 
        generateRSA_Keys(document.getElementById("emailForm").value,document.getElementById("nameForm").value,document.getElementById("passForm").value);
 
-
-
     })
+
+
+
 
 });
