@@ -12,11 +12,11 @@ stay on your machine. The source code is available for you to audit if you feel 
 
 Any contributions are happily welcomed
 
-Currently at day 0: 
+Currently at day 2018-10-20: 
 
 - Encryption works
 - Decryption works
-- Key Generation
+- Key Generation works
 
 To-do:
 
