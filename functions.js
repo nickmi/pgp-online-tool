@@ -6,39 +6,38 @@
  */
 
 "use strict";
-async function  encrypt_message(pubkey, message)
+async function encrypt_message(textAreaValues)
 {
-
     let options =  {
-        message: openpgp.message.fromText(message),
-        publicKeys: ( await openpgp.key.readArmored(pubkey)).keys
+        message: openpgp.message.fromText(textAreaValues.message),
+        publicKeys: ( await openpgp.key.readArmored(textAreaValues.pubkey)).keys
 };
     openpgp.encrypt(options).then(function(ciphertext){
         document.getElementById("pgpMessage").value = ciphertext.data;
     }).catch(console.error);
 }
 
-async function decrypt_message(privkey,encryptedMessage,passphrase) {
+async function decrypt_message(valuesForDecryption) {
 
-    const privKeyObj = (await openpgp.key.readArmored(privkey)).keys[0];
-    await privKeyObj.decrypt(passphrase).catch(console.error);
+    const privKeyObj = (await openpgp.key.readArmored(valuesForDecryption.privateKey)).keys[0];
+    await privKeyObj.decrypt(valuesForDecryption.passphrase).catch(console.error);
 
     const options = {
-        message: await openpgp.message.readArmored(encryptedMessage).catch(console.error),    // parse armored message
+        message: await openpgp.message.readArmored(valuesForDecryption.message).catch(console.error),    // parse armored message
         privateKeys: [privKeyObj]                               // for decryption
-    }
+    };
 
     openpgp.decrypt(options).then(plaintext => {
         document.getElementById("plainTextMessage").value = plaintext.data;
     }).catch(console.error);
 }
 
- async function generateRSA_Keys(email,name,password){
+  function generateRSA_Keys(formValues){
 
     let options = {
-        userIds: [{ name:name, email:email }], // multiple user IDs
+        userIds: [{ name:formValues.name, email:formValues.email }], // multiple user IDs
         numBits: 4096,                                            // RSA key size
-        passphrase: password         // protects the private key
+        passphrase: formValues.password         // protects the private key
     };
 
     openpgp.generateKey(options).then(function(key) {
@@ -48,13 +47,6 @@ async function decrypt_message(privkey,encryptedMessage,passphrase) {
         let pubkey = key.publicKeyArmored;   // '-----BEGIN PGP PUBLIC KEY BLOCK ... '
         let revocationSignature = key.revocationSignature; // '-----BEGIN PGP PUBLIC KEY BLOCK ... '.
 
-        $("#keygenerationButton").prop('disabled', false).text("Generate Key Pair").addClass('btn-dark').removeClass('btn-danger ');
-        $("#encryptButton").prop('disabled', false).text("Generate Key Pair").addClass('btn-dark').removeClass('btn-danger ');
-        $("#decryptButton").prop('disabled', false).addClass('btn-dark').removeClass('btn-danger ');
-
-
-        alert("Key generation completed");
-
         let zip = new JSZip();
         zip.file("privkey.asc", privkey);
         zip.file("pubkey.asc", pubkey);
@@ -62,63 +54,64 @@ async function decrypt_message(privkey,encryptedMessage,passphrase) {
             .then(function(content) {
 
                 saveAs(content, "keys.zip");
-            });
+            }).then(bringBackDomDefaults());
+
+
     }).catch(console.error);
 
 }
 
+function bringBackDomDefaults  ()  {
 
-
+    $("#keygenerationButton").prop('disabled', false).text("Generate Key Pair").addClass('btn-dark').removeClass('btn-danger ');
+    $("#encryptButton").prop('disabled', false).text("Generate Key Pair").addClass('btn-dark').removeClass('btn-danger ');
+    $("#decryptButton").prop('disabled', false).addClass('btn-dark').removeClass('btn-danger ');
+    alert("Key generation completed");
+};
 
 function validateInput() {
 
-    let email = $("#emailForm").val();
+    let internalValuesOfDom={
+        email : $("#emailForm").val(),
+        name : $("#nameForm").val(),
+        password : $("#passForm").val(),
 
-    let name = $("#nameForm").val();
+    };
 
-    let password = $("#passForm").val();
-
-
-
-    $("#keygenerationButton").prop('disabled', (email&&name&&password)==="");
-    console.log( (email&&name&&password)==="");
-    console.log(email,name,password);
-    console.log("asdasd");
-
+    $("#keygenerationButton").prop('disabled', (internalValuesOfDom.email&&internalValuesOfDom.name&&internalValuesOfDom.password)==="");
 }
-
-
-//$("#emailForm").keyup(validateInput);
-
 
 $(document).ready(function(){
 
 
     $("#keygenerationButton").prop('disabled', true);
 
-
-
-
     $("#emailForm,#nameForm,#passForm").each(function(){
         $(this).keypress(validateInput).keyup(validateInput).keydown(validateInput);
     });
 
-
-
     $("#decryptButton").click(function(){
 
-        let message = $('textarea#pgpMessage').val();
-        let privateKey = $('textarea#pgpKey').val();
-        decrypt_message(privateKey,message,document.getElementById("passphrasePGP").value).catch(console.error);
+        let valuesForDecryption = {
+
+             message : $('textarea#pgpMessage').val(),
+             privateKey : $('textarea#pgpKey').val(),
+             passphrase: document.getElementById("passphrasePGP").value
+
+        };
+
+        decrypt_message(valuesForDecryption).catch(console.error);
 
     });
 
     $("#encryptButton").click(function(){
 
-        let message = $('textarea#plainTextMessage').val();
-        let pubkey = $('textarea#pgpKey').val();
+        let textAreaValues= {
 
-            encrypt_message(pubkey, message);
+            message : $('textarea#plainTextMessage').val(),
+            pubkey :  $('textarea#pgpKey').val()
+    };
+            encrypt_message(textAreaValues);
 
     });
 
@@ -128,12 +121,15 @@ $(document).ready(function(){
         $("#encryptButton").prop('disabled', true).removeClass('btn-dark').addClass('btn-danger');
         $("#decryptButton").prop('disabled', true).removeClass('btn-dark').addClass('btn-danger');
 
+        let formValues ={
 
-        generateRSA_Keys(document.getElementById("emailForm").value,document.getElementById("nameForm").value,document.getElementById("passForm").value);
+            email:document.getElementById("emailForm").value,
+            name:document.getElementById("nameForm").value,
+            pass:document.getElementById("passForm").value
+
+        };
+
+        generateRSA_Keys(formValues);
 
     })
-
-
-
-
 });
